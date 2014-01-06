@@ -1,0 +1,540 @@
+// Place all the styles related to the roofs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.roofs.new,
+.roofs.edit {
+  #map {
+    height: 580px;
+  }
+}
+
+.roofs.show {
+
+  .banner {
+    background: none repeat scroll 0 0 #222222;
+    border-bottom: 1px solid #FFFFFF;
+    height: 201px;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+
+    .backgroundPhoto.blurred {
+      opacity: 1;
+    }
+
+    .backgroundPhoto {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+      opacity: 0.6;
+      width: 100%;
+    }
+  }
+
+  section.photos {
+
+    &.new {
+      -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px 0px;
+      -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px 0px;
+      box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px 0px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      margin-left: 5px;
+      width: 580px;
+      margin-top: 20px;
+      padding: 20px 30px;
+      position: relative;
+      background: #f7f7f7;
+      text-align: center;
+    }
+
+    ul.photos {
+      list-style: none outside none;
+      margin: 0;
+      overflow: hidden;
+      padding: 0 0 10px 5px;
+    }
+    ul.photos li.photo {
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      animation-iteration-count: 1;
+      animation-name: fadeInUp;
+      animation-timing-function: ease;
+      border-radius: 3px 3px 3px 3px;
+      box-shadow: none;
+      float: left;
+      height: 152px;
+      left: 1px;
+      margin: 0 0 0 10px;
+      position: relative;
+      width: 152px;
+      z-index: 1;
+    }
+    ul.photos li.photo:first-child {
+      margin: 0;
+    }
+    ul.photos li.photo:nth-child(1) {
+      animation-delay: 0.5s;
+    }
+    ul.photos li.photo:nth-child(2) {
+      animation-delay: 0.75s;
+    }
+    ul.photos li.photo:nth-child(3) {
+      animation-delay: 1s;
+    }
+    ul.photos li.photo:nth-child(4) {
+      animation-delay: 1.25s;
+    }
+    ul.photos li.photo img {
+      border-radius: 3px 3px 3px 3px;
+    }
+    ul.photos li.photo.photoWithContent,
+    ul.photos li.photo.allPhotos {
+      background: none repeat scroll 0 0 #222222;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+    }
+    ul.photos li.photo.photoWithContent:after,
+    ul.photos li.photo.allPhotos:after {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 3px 3px 3px 3px;
+      content: "";
+      display: block;
+      height: 150px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 150px;
+    }
+
+    ul.photos li.photo.photoWithContent a {
+      z-index: 2;
+      position: relative;
+    }
+    ul.photos li.photo.photoWithContent img {
+      width: 152px;
+      height: 152px;
+    }
+
+    ul.photos li.photo.placeholderPhoto {
+      background: url("https://ss1.4sqi.net/img/venuepage/photo-placeholder-ee3670b36dc143166993804c146145d4.png") no-repeat scroll left top transparent;
+      opacity: 0.5;
+    }
+    ul.photos li.photo.placeholderPhoto {
+      background-image: url("https://ss1.4sqi.net/img/venuepage/photo-placeholder@2x-9969e4c982a70d29860036232d6247da.png");
+      background-size: 152px 152px;
+    }
+    ul.photos li.photo.placeholderPhoto {
+      background-image: url("https://ss1.4sqi.net/img/venuepage/photo-placeholder@2x-9969e4c982a70d29860036232d6247da.png");
+      background-size: 152px 152px;
+    }
+    ul.photos li.photo.placeholderPhoto a {
+      width: 152px;
+      height: 152px;
+      display: block;
+    }
+    ul.photos li.photo.allPhotos {
+      line-height: 0;
+      overflow: hidden;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink {
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: bold;
+      z-index: 2;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink > img {
+      border-radius: 0 0 0 0;
+      height: 51px;
+      width: 50px;
+      float: left;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink img:nth-child(3n+1) {
+      width: 51px;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink img:nth-child(3n+2) {
+      width: 51px;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink img:nth-child(2) {
+      border-radius: 3px 0 0 0;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink img:nth-child(4) {
+      border-radius: 0 3px 0 0;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink img:nth-child(8) {
+      border-radius: 0 0 0 3px;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink img:nth-child(10) {
+      border-radius: 0 0 3px 0;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink .allPhotosText {
+      background: none repeat scroll 0 0 rgba(0, 0, 0, 0.25);
+      height: 104px;
+      line-height: 10px;
+      padding-top: 48px;
+      position: absolute;
+      text-align: center;
+      text-shadow: 0 0 5px #000000;
+      width: 100%;
+      z-index: 3;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink .allPhotosText:hover {
+      text-decoration: underline;
+    }
+    ul.photos li.photo.allPhotos a.allPhotosLink .allPhotosText img {
+      height: 40px;
+      width: 50px;
+    }
+  }
+
+  section.info {
+    background: none repeat scroll 0 0 white;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    margin-left: 5px;
+    padding: 20px 0 0;
+    position: relative;
+    width: 640px;
+
+    .status {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      color: #fff;
+      z-index: 2;
+      text-decoration: none;
+    }
+
+    .header {
+      border-bottom: 1px solid #F5F3F1;
+      margin: 0 0 20px;
+      overflow: hidden;
+      padding: 0 20px 20px;
+      position: relative;
+
+      h1.name {
+        color: #4D4D4D;
+        line-height: 30px;
+        height: 30px;
+        margin: 0;
+      }
+    }
+
+    .attributes {
+      font-size: 11px;
+      font-weight: bold;
+      padding: 0 20px;
+      overflow: hidden;
+
+      .leftColumn,
+      .rightColumn {
+        float: left;
+        line-height: 20px;
+        vertical-align: top;
+        width: 300px;
+
+        p {
+          color: #4D4D4D;
+          margin: 0;
+        }
+
+        .attr {
+          color: #999999;
+          width: 90px;
+        }
+
+        .value {
+          width: 200px;
+        }
+
+        .attr,
+        .value {
+          display: inline-block;
+          vertical-align: top;
+        }
+
+        .directionsLink {
+          color: #999999;
+        }
+      }
+
+      .leftColumn {
+        margin-right: 20px;
+      }
+    }
+
+    .description {
+      margin-top: 15px;
+      padding: 0 20px 15px 20px;
+    }
+
+    .actions {
+      background: #fff;
+      padding: 15px 20px;
+      overflow: hidden;
+
+      .btn-group {
+        margin-right: 20px;
+
+        i,
+        i:before {
+          cursor: pointer !important;
+        }
+      }
+    }
+  }
+
+
+  section.instruction {
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px 0px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px 0px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 3px 0px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-left: 5px;
+    width: 580px;
+    margin-top: 20px;
+    padding: 20px 30px;
+    background: none repeat scroll 0 0 white;
+    position: relative;
+
+    &.buy {
+      background: #f3e77a url('yellow-pattern-instruction.png') no-repeat center right;
+      text-align: center;
+    }
+
+    &.new {
+      background-color: #dfeef8;
+      text-align: center;
+    }
+
+    .edit {
+      color: #999999;
+      font-size: 11px;
+      margin-right: 10px;
+      position: absolute;
+      right: 5px;
+      top: 7px;
+      z-index: 2;
+
+      a {
+        color: #999999;
+      }
+    }
+
+    .row-fluid {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  section.map {
+    position: relative;
+
+    #map {
+      border-radius: 3px 3px 3px 3px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+      height: 260px;
+      position: relative;
+      width: 300px;
+      z-index: 1;
+
+      background: #DDDDDD;
+    }
+  }
+
+  section.near {
+    border-bottom: 1px solid #DAD8D4;
+    margin: 20px 0;
+    padding-bottom: 10px;
+    width: 300px;
+
+    h4 {
+      font-size: 13px;
+      margin: 0;
+    }
+
+    ul {
+      list-style: none outside none;
+      margin: 0 0 5px;
+
+      li:first-child {
+        margin-top: 5px;
+      }
+
+      li {
+        margin: 0 -10px;
+        overflow: hidden;
+        padding: 5px 10px;
+        position: relative;
+        width: 290px;
+
+        a.photo {
+          display: block;
+          float: left;
+          line-height: 0;
+
+          img {
+            border-radius: 3px 3px 3px 3px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+          }
+        }
+
+        .info {
+          color: #999999;
+          float: left;
+          margin-left: 10px;
+          margin-top: 4px;
+          width: 230px;
+
+          .name {
+            margin: 0;
+
+            a {
+              font-weight: bold;
+            }
+          }
+
+          .data {
+            margin: 0;
+
+            .score {
+              float: left;
+              margin-right: 5px;
+              padding: 1px 5px;
+              width: auto;
+            }
+            .address {
+              display: inline-block;
+              font-size: 11px;
+              line-height: 20px;
+              max-width: 198px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+
+  .score {
+    color: #FFFFFF;
+    cursor: default;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+
+    &.positive {
+      background: none repeat scroll 0 0 #69BF13;
+    }
+
+    &.neutral {
+      background: none repeat scroll 0 0 #BFBFBF;
+    }
+  }
+}
+
+
+
+
+
+.selectize-control.movies .selectize-dropdown > div {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  height: 60px;
+  position: relative;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 10px 10px 10px 60px;
+}
+.selectize-control.movies .selectize-dropdown > div:last-child {
+  border-bottom: 0 none;
+}
+.selectize-control.movies .selectize-dropdown .by {
+  font-size: 11px;
+  opacity: 0.8;
+}
+.selectize-control.movies .selectize-dropdown .by::before {
+  content: 'by ';
+}
+.selectize-control.movies .selectize-dropdown .name {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.selectize-control.movies .selectize-dropdown .description {
+  font-size: 12px;
+  color: #a0a0a0;
+}
+.selectize-control.movies .selectize-dropdown .actors,
+.selectize-control.movies .selectize-dropdown .description,
+.selectize-control.movies .selectize-dropdown .title {
+  display: block;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.selectize-control.movies .selectize-dropdown .actors {
+  font-size: 10px;
+  color: #a0a0a0;
+}
+.selectize-control.movies .selectize-dropdown .actors span {
+  color: #606060;
+}
+.selectize-control.movies .selectize-dropdown img {
+  height: 60px;
+  left: 10px;
+  position: absolute;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.04);
+}
+.selectize-control.movies .selectize-dropdown .meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 10px;
+}
+.selectize-control.movies .selectize-dropdown .meta li {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  margin-right: 10px;
+}
+.selectize-control.movies .selectize-dropdown .meta li span {
+  font-weight: bold;
+}
+.selectize-control.movies::before {
+  -moz-transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+  content: ' ';
+  z-index: 2;
+  position: absolute;
+  display: block;
+  top: 12px;
+  right: 34px;
+  width: 16px;
+  height: 16px;
+  background: url(images/spinner.gif);
+  background-size: 16px 16px;
+  opacity: 0;
+}
+.selectize-control.movies.loading::before {
+  opacity: 0.4;
+}

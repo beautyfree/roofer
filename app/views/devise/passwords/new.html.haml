@@ -1,0 +1,18 @@
+.span4
+.span4
+  .title_line
+    .title Восстановление пароля
+    .pull-right
+      = link_to "Войти", new_session_path(resource_name)
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+
+    = f.label :email
+    = f.email_field :email, :autofocus => true
+
+    .buttons
+      = f.submit "Отправить", :class => 'btn btn-primary'
+      .links
+        - if devise_mapping.confirmable?
+          = link_to "Не пришло письмо?", new_confirmation_path(resource_name)
+  =# render "devise/shared/links"
+.span4

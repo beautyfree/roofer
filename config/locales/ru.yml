@@ -1,0 +1,29 @@
+ru:
+  remember_me: "Запомнить меня"
+
+  currency:
+    one: "взлет"
+    few: "взлета"
+    many: "взлетов"
+    other: "взлетов"
+
+  notice:
+    robokassa:
+      success: "Поздравляем! Оплата прошла успешно!"
+
+  mongoid:
+      models:
+        user: "Пользователь"
+      attributes:
+        user:
+          email: "Электронная почта"
+          password: "Пароль"
+          password_confirmation: "Повторение пароля"
+          current_password: "Текущий пароль"
+        roof:
+          name: "Название"
+          description: "Описание"
+          city: "Город"
+          state: "Область"
+          address: "Адрес"
+          cost: "Цена"

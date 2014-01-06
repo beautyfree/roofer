@@ -1,0 +1,41 @@
+.span4
+.span4
+  .title_line
+    .title Регистрация
+    .pull-right
+      = link_to "Вход", new_session_path(resource_name)
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+
+    = f.label :email
+    = f.email_field :email, :autofocus => true
+
+    = f.label :password
+    = f.password_field :password
+
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+
+    .buttons
+      = f.submit "Зарегистрироваться", :class => 'btn btn-primary'
+      .links
+        - if devise_mapping.recoverable?
+          = link_to "Напомнить пароль", new_password_path(resource_name)
+        - if devise_mapping.confirmable?
+          = link_to "Не пришло письмо?", new_confirmation_path(resource_name)
+
+
+    .form-actions
+      .title Войти с помощью &mdash;
+      .social
+        -#
+          <a title="Авторизоваться через Facebook" class="facebook_button" href="/users/auth/facebook"></a>
+          <a title="Авторизоваться через Вконтакте" class="vkontakte_button" href="/users/auth/vkontakte"></a>
+          <a title="Авторизоваться через Twitter" class="twitter_button" href="/users/auth/twitter"></a>
+          <a title="Авторизоваться через Google Plus" class="googleplus_button" href="/users/auth/google_oauth2"></a>
+          <a title="Авторизоваться через GitHub" class="github_button" href="/users/auth/github"></a>
+        = link_to "", user_omniauth_authorize_path(:facebook), :class => "facebook_button"
+        = link_to "", user_omniauth_authorize_path(:vkontakte), :class => "vkontakte_button"
+
+  =# render "devise/shared/links"
+.span4
+

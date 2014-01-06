@@ -1,0 +1,17 @@
+%h1 Listing roofs
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @roofs.each do |roof|
+    %tr
+      %td= link_to 'Show', roof
+      %td= link_to 'Edit', edit_roof_path(roof)
+      %td= link_to 'Destroy', roof, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Roof', new_roof_path

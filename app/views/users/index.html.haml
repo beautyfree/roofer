@@ -1,0 +1,11 @@
+%h1 Listing users
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= link_to user.email, user

@@ -1,0 +1,60 @@
+.row-fluid
+  .span8
+  .span4
+    %section#section_upcoming-features
+      %h2#upcoming-features Будущие нововведения
+      %p ETA (количество недель от текущей)
+      %ol
+        %li
+          %strong Email notifications
+        %li
+          %strong Image and video support
+        %li
+          %strong Language support
+        %li
+          %strong Search engine optimization
+        %li
+          %strong Nested categories
+        %li
+          %strong Sticky posts
+        %li
+          %strong Improved documentation
+        %li
+          Single sign on (SSO)
+          %em 2
+        %li
+          Custom / extended branding
+          %em 1
+        %li
+          Full data export
+          %em 2
+        %li
+          JavaScript API + docs
+          %em 2
+        %li
+          Pseudonyms
+          %em 1
+        %li
+          Popular / trending moots
+          %em 1
+        %li
+          Login across domains
+          %em 1
+        %li
+          Data import
+          %em 2
+
+- content_for :end do
+  :javascript
+    $(function() {
+
+      var weeks = 0;
+      $("#section_upcoming-features li").each(function() {
+          var li = $(this);
+          wk = $("em", li);
+
+          weeks += 1 * wk.text();
+
+          wk.text(weeks + "");
+      });
+    });

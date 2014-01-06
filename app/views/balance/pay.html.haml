@@ -1,0 +1,10 @@
+/ @payment.id # @payment.amount,
+= payment_service_for 0, Roofer::Application.config.robokassa_login,
+                        :amount =>  @amount,
+                        :service => :robokassa,
+                        :secret => Roofer::Application.config.robokassa_secret do |s|
+  - s.shp_uid current_user._id
+
+- content_for :end do
+  :javascript
+    $('form').submit();

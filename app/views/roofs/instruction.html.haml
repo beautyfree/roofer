@@ -1,0 +1,51 @@
+= nested_form_for @roof, :html => { :multipart => true } do |f|
+  - if @roof.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@roof.errors.count, "error")} prohibited this roof from being saved:"
+      %ul
+        - @roof.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    %legend Инструкция
+    = f.fields_for :instruction do |i|
+      = i.hidden_field :user, :value => current_user._id
+      = i.fields_for :steps do |b|
+        .row-fluid
+          .span2{"data-target" => "#modal-gallery", "data-toggle" => "modal-gallery"}
+            - if b.object.image.present?
+              = link_to image_tag(b.object.image.url(:thumb)), b.object.image.url(:original), "data-gallery" => "gallery"
+            - else
+              = b.file_field :image, :class => 'step_image', :title => 'Фотография'
+          .span8
+            = b.text_area :description, :rows => 3, :class => 'input-block-level'
+          .span2
+            = b.link_to_remove "Удалить шаг"
+      = i.link_to_add "Добавить шаг", :steps
+
+  %fieldset
+    %legend Стоимость
+    = f.label :cost
+    = f.text_field :cost, :class => 'span1'
+    %span.help-inline{ :data => { "original-title" => "Валюта руфим", "placement" => "bottom", "toggle" => "tooltip"}}
+      %i.icon-white.icon-rocket
+
+
+  .form-actions
+    = submit_tag 'Сохранить', :class => 'btn btn-primary', :onclick => '$("form[id*=roof]").submit();'
+    = link_to 'Назад', @roof, :class => 'btn'
+
+- content_for :end do
+  :javascript
+    $(document).ready(function(){
+      $('input[type=file].step_image').bootstrapFileInput();
+    });
+
+    $(document).on('nested:fieldAdded', function(event){
+        // this field was just inserted into your form
+        var field = event.field;
+        // it's a jQuery object already! Now you can find date input
+        var fileField = field.find('input[type=file].step_image');
+        // and activate bootstrapFile on it
+        fileField.bootstrapFileInput();
+    })

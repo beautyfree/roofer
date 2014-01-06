@@ -1,0 +1,7 @@
+ru:
+  fileupload:
+    add_files: "Добавить файлы..."
+    start_upload: "Загрузить"
+    cancel_upload: "Остановить загрузку"
+    delete_multi: "Удалить"
+    delete: "Удалить"

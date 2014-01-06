@@ -1,0 +1,2 @@
+module GeomongoHelper
+end

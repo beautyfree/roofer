@@ -1,0 +1,124 @@
+.photos.index {
+  #main {
+    padding-top: 10px;
+
+    & > .container {
+      background: none repeat scroll 0 0 #FFFFFF;
+      border: 1px solid #D9D9D9;
+      border-radius: 3px 3px 3px 3px;
+      box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+
+      #photosPage {
+        overflow: hidden;
+        padding: 10px 20px 20px;
+
+        .venue {
+          background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
+          border-bottom: 1px solid #D9D9D9;
+          float: left;
+          height: auto;
+          margin: 0 0 20px;
+          padding: 10px 0 0;
+          transition: margin 0.2s ease 0s, padding 0.2s ease 0s;
+          width: 920px;
+
+          .details {
+            float: left;
+            margin: 0;
+            overflow: hidden;
+
+            .vcard {
+              float: left;
+              margin: 0 0 6px 10px;
+              width: 700px;
+            }
+          }
+
+          h1 {
+            line-height: 32px;
+            margin: 0 0 2px;
+
+            a {
+              color: #4D4D4D;
+            }
+          }
+
+          em {
+            color: #999999;
+            float: right;
+            font-size: 15px;
+            font-style: normal;
+            margin-left: 10px;
+          }
+        }
+
+        #venuePhotos {
+          clear: both;
+          overflow: hidden;
+
+          .photo {
+            cursor: pointer;
+            float: left;
+            height: 300px;
+            margin: 0 0 5px 5px;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+
+            &:hover .meta {
+              bottom: 0;
+              display: block;
+            }
+
+            .meta {
+              background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
+              border-top: 1px solid #333333;
+              bottom: -85px;
+              color: #EEEEEE;
+              padding: 10px;
+              position: absolute;
+              text-align: left;
+              transition: bottom 0.2s ease 0s;
+              width: 280px;
+
+              .userPic {
+                border-radius: 3px 3px 3px 3px;
+                float: left;
+                height: 32px;
+                width: 32px;
+              }
+
+              .nameDate {
+                float: left;
+                line-height: 16px;
+                margin-left: 10px;
+                max-width: 220px;
+              }
+
+              .date {
+                color: #999999;
+                font-size: 11px;
+              }
+            }
+
+            img {
+              border-radius: 5px 5px 5px 5px;
+              height: 300px;
+              width: 300px;
+            }
+          }
+
+          img {
+            border-radius: 5px 5px 5px 5px;
+            height: 300px;
+            width: 300px;
+          }
+        }
+
+      }
+    }
+
+  }
+}

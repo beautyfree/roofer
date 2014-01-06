@@ -1,0 +1,71 @@
+// Default 940px grid
+// -------------------------
+$gridColumns:             12 !default;
+$gridColumnWidth:         65px !default;
+$gridGutterWidth:         20px !default;
+$gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
+
+@import "bootstrap";
+
+body {
+  padding-top: 40px;
+  background: #fff;
+  height: 100%;
+  //background: #FBFCF5;
+}
+//@import "bootstrap-responsive";
+
+/* Tweak navbar brand link to be super sleek
+-------------------------------------------------- */
+
+body > .navbar {
+  font-size: 13px;
+}
+
+/* Change the docs' brand */
+/*
+body > .navbar .brand {
+  //padding-right: 0;
+  //padding-left: 0;
+  //margin-left: 20px;
+  //float: right;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  transition: all .2s linear;
+}
+body > .navbar .brand:hover {
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
+}
+*/
+
+body > .navbar .brand {
+  font-weight: bold;
+  color: #fff;
+}
+
+.navbar-inverse .navbar-inner {
+  opacity: 0.8;
+
+  .nav > li > a.btn {
+    padding: 4px 12px;
+  }
+}
+
+/*
+.container {
+  width: 980px !important;
+}
+*/
+
+.tooltip-inner {
+  max-width: 300px;
+}
+
+
+
+
+

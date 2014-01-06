@@ -1,0 +1,10 @@
+= form_for @roof_status do |f|
+  - if @roof_status.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@roof_status.errors.count, "error")} prohibited this roof_status from being saved:"
+      %ul
+        - @roof_status.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

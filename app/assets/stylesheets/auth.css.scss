@@ -1,0 +1,73 @@
+.sessions,
+.passwords,
+.registrations {
+  #main {
+    padding: 30px
+  }
+
+  .title_line {
+    border-bottom: 1px solid #ECECEC;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+
+    .title {
+      color: #555E6C;
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .pull-rigth {
+      font-size: 14px;
+      padding-top: 3px;
+
+      a {
+        color: #8F8F8F;
+      }
+    }
+  }
+
+  form {
+    .buttons .links {
+      color: #555E6C;
+      font-size: 12px;
+      padding-top: 10px;
+
+      a {
+        color: #555E6C;
+        margin-right: 5px;
+      }
+    }
+
+    .form-actions {
+      padding: 15px 30px;
+
+      .title {
+        color: #8F8F8F;
+        display: inline-block;
+        font-size: 14px;
+        vertical-align: middle;
+      }
+
+      .social {
+        display: inline-block;
+        vertical-align: middle;
+
+        a.facebook_button {
+          background: url("/assets/social_mini.png") no-repeat scroll -35px 0 transparent;
+          display: inline-block;
+          height: 30px;
+          width: 30px;
+        }
+
+        a.vkontakte_button {
+          background: url("/assets/social_mini.png") no-repeat scroll -69px 0 transparent;
+          display: inline-block;
+          height: 30px;
+          width: 30px;
+        }
+      }
+    }
+  }
+}

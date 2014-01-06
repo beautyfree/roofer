@@ -1,0 +1,17 @@
+%h1 Listing roof_statuses
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @roof_statuses.each do |roof_status|
+    %tr
+      %td= link_to 'Show', roof_status
+      %td= link_to 'Edit', edit_roof_status_path(roof_status)
+      %td= link_to 'Destroy', roof_status, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Status', new_roof_status_path

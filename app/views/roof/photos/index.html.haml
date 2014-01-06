@@ -1,0 +1,44 @@
+#photosPage
+  .titleBlock.venue.full.pinned
+    .details{:itemscope => "", :itemtype => "http://schema.org/LocalBusiness"}
+      .vcard
+        %h1.fn.org{:itemprop => "name"}
+          %a{:href => roof_path(@roof)}= @roof.name
+        .adr{:itemprop => "address", :itemscope => "", :itemtype => "http://schema.org/PostalAddress"}
+          %span.street-address{:itemprop => "streetAddress"}>= @roof.address
+          ,
+          %span.locality{:itemprop => "addressLocality"}= @roof.city
+    %span.photoCount
+      %em #{@photos.count} фотография
+      = link_to "Опубликовать фотографии", new_roof_photo_path(@roof), :class => 'btn'
+  #undefinedPlaceholder{:style => "height: 89px; width: 919.533px; display: block;"}
+  #venuePhotos{ 'data-toggle' => 'modal-gallery', 'data-target' => '#modal-gallery'}
+    - @photos.each do |photo|
+      .photo
+        %span
+          .meta
+            %img.avatar.userPic{:alt => "Irina P.", "data-retina-url" => "https://irs3.4sqi.net/img/user/64x64/F4YMZTKRSQVSINPA.jpg", :height => "32", :src => "https://irs3.4sqi.net/img/user/32x32/F4YMZTKRSQVSINPA.jpg", :title => "Irina P.", :width => "32"}/
+            .nameDate
+              .name= photo.user.email
+              .date= (l photo.created_at, format: :long) if photo.created_at
+          = link_to image_tag(photo.image.url(:thumb)), photo.image.url, 'data-gallery' => 'gallery'
+
+- content_for :end do
+  = render 'shared/fileupload/modal_gallery'
+
+-#
+  %table
+    %tr
+      %th
+      %th
+      %th
+
+    - @photos.each do |photo|
+      %tr
+        %td= link_to 'Show', roof_photo_path(@roof, photo)
+        %td= link_to 'Edit', edit_roof_photo_path(@roof, photo)
+        %td= link_to 'Destroy', roof_photo_path(@roof, photo), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  %br
+
+  = link_to 'New Photo', new_roof_photo_path(@roof)

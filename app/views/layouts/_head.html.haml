@@ -1,0 +1,11 @@
+%meta{:charset => "utf-8"}
+%meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
+%title= content_for?(:title) ? yield(:title) : "Руфим"
+%meta{:content => "", :name => "description"}
+%meta{:content => "", :name => "author"}
+
+= stylesheet_link_tag "application", :media => "all"
+%link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.2.0/css/font-awesome.css", :rel => "stylesheet"}/
+= csrf_meta_tags
+
+= yield(:head)

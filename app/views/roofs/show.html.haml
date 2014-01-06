@@ -1,0 +1,258 @@
+.banner
+  .backgroundPhoto.blurred{"data-imageurl" => "https://irs0.4sqi.net/img/general/cap1000/blur20/46429646_4MteUSv9FljlrHmu29u_I_mrIluIXeYSz96kItKIjNM.jpg", :style => "background-image: url('https://irs0.4sqi.net/img/general/cap1000/blur20/46429646_4MteUSv9FljlrHmu29u_I_mrIluIXeYSz96kItKIjNM.jpg');"}
+
+.container
+  = render 'layouts/messages'
+  .row-fluid
+    .span8
+      - if @roof.photos?
+        %section.photos
+          %ul.photos{ 'data-toggle' => 'modal-gallery', 'data-target' => '#modal-gallery'}
+            - @roof.photos.first(3).each do |photo|
+              %li.photo.photoWithContent{"data-photoid" => photo._id}
+                = link_to image_tag(photo.image.url(:thumb), "data-retina-url" => photo.image.url, :height => "152", "photo-id" => photo._id, :width => "152"), photo.image.url, 'data-gallery' => 'gallery'
+              -#
+                %li.photo.photoWithContent{"data-photoid" => "514b3100e4b0d9e18f535851"}
+                  %img{:alt => "", "data-retina-url" => "https://irs2.4sqi.net/img/general/304x304/47842024_eUIVVrJtKk6NdBm5AW6npgWOWptl_VvaNV__9oflWpE.jpg", :height => "152", "photo-id" => "514b3100e4b0d9e18f535851", :src => "https://irs2.4sqi.net/img/general/152x152/47842024_eUIVVrJtKk6NdBm5AW6npgWOWptl_VvaNV__9oflWpE.jpg", :width => "152"}/
+                %li.photo.photoWithContent{"data-photoid" => "51839497498e0bfd192001bf"}
+                  %img{:alt => "", "data-retina-url" => "https://irs0.4sqi.net/img/general/304x304/55102357_yNsPwbH-e2cO1VmFED5NBGtMIW55bjlRX96_WGd2btc.jpg", :height => "152", "photo-id" => "51839497498e0bfd192001bf", :src => "https://irs0.4sqi.net/img/general/152x152/55102357_yNsPwbH-e2cO1VmFED5NBGtMIW55bjlRX96_WGd2btc.jpg", :width => "152"}/
+                %li.photo.photoWithContent{"data-photoid" => "51ace7f2498e0f1349788f35"}
+                  %img{:alt => "", "data-retina-url" => "https://irs1.4sqi.net/img/general/304x304/20544762_X874UrxqhvbAH1GEeN7zafiENMu8D99HXil1CfCPomc.jpg", :height => "152", "photo-id" => "51ace7f2498e0f1349788f35", :src => "https://irs1.4sqi.net/img/general/152x152/20544762_X874UrxqhvbAH1GEeN7zafiENMu8D99HXil1CfCPomc.jpg", :width => "152"}/
+
+            - if @roof.photos.count < 4
+              / Если недобор фоток
+              - (4 - @roof.photos.count).times.each do
+                %li.photo.placeholderPhoto
+                  = link_to "", new_roof_photo_path(@roof)
+            - else
+              %li.photo.allPhotos
+                %a.allPhotosLink{:href => roof_photos_path(@roof)}
+                  .allPhotosText
+                    %img{:alt => "", :height => "40", :src => "https://ss0.4sqi.net/img/venuepage/icon-camera-c9f36fa097153acadc23534466d1e747.png", :width => "50"}/
+                    %br/
+                    Посмотреть все #{@roof.photos.count} »
+
+                  - if @roof.photos.count >= 9
+                    - @roof.photos.last(9).each do |photo|
+                      %img{:alt => "", "data-retina-url" => photo.image.url, :height => "50", "photo-id" => photo._id, :src => photo.image.url, :width => "50"}/
+                  - else
+                    / Недобор - повторяем
+                    - photos = (@roof.photos * (9 / @roof.photos.count + 1).to_i)
+                    - photos[0, 9].each do |photo|
+                      %img{:alt => "", "data-retina-url" => photo.image.url, :height => "50", "photo-id" => photo._id, :src => photo.image.url, :width => "50"}/
+
+
+              -#
+                %li.photo.allPhotos
+                  %a.allPhotosLink{:href => "https://ru.foursquare.com/v/mitrich-steakhouse/511a77ede4b099ee1a822a7e/photos"}
+                    .allPhotosText
+                      %img{:alt => "", :height => "40", :src => "https://ss0.4sqi.net/img/venuepage/icon-camera-c9f36fa097153acadc23534466d1e747.png", :width => "50"}/
+                      %br/
+                      See all 43 »
+                    %img{:alt => "", "data-retina-url" => "https://irs0.4sqi.net/img/general/100x100/1900280_F6xJH6PbvjeClkcnWuO9n_McH3ZZHrkCVYv8G0tWjVA.jpg", :height => "50", "photo-id" => "51371530e4b03cc5bd98d438", :src => "https://irs0.4sqi.net/img/general/50x50/1900280_F6xJH6PbvjeClkcnWuO9n_McH3ZZHrkCVYv8G0tWjVA.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs2.4sqi.net/img/general/100x100/1900280_E2GfhguK3xrALlSvzTgsWeidwXDfneKtxu9vapLIu6I.jpg", :height => "50", "photo-id" => "51370b2de4b0fea3ac44d867", :src => "https://irs2.4sqi.net/img/general/50x50/1900280_E2GfhguK3xrALlSvzTgsWeidwXDfneKtxu9vapLIu6I.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs3.4sqi.net/img/general/100x100/26392216_n6KB4PrRvcUWTLG2G9JOQcucwKoLn4FlFNad3waC0yw.jpg", :height => "50", "photo-id" => "51461aa2e4b0251c35e0f9ce", :src => "https://irs3.4sqi.net/img/general/50x50/26392216_n6KB4PrRvcUWTLG2G9JOQcucwKoLn4FlFNad3waC0yw.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs3.4sqi.net/img/general/100x100/26392216_IEr-0JkjzOACyI48VOoBD2_lf06JrN6Xs3zpe1oIbIk.jpg", :height => "50", "photo-id" => "5145c117e4b0c10762d6f4b4", :src => "https://irs3.4sqi.net/img/general/50x50/26392216_IEr-0JkjzOACyI48VOoBD2_lf06JrN6Xs3zpe1oIbIk.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs1.4sqi.net/img/general/100x100/23925666_n-YENN7fJwHqupllL0uEKm0gvu94NCPd8PeVfNpJZEc.jpg", :height => "50", "photo-id" => "51a5cbe9498e143ae5cb169a", :src => "https://irs1.4sqi.net/img/general/50x50/23925666_n-YENN7fJwHqupllL0uEKm0gvu94NCPd8PeVfNpJZEc.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs1.4sqi.net/img/general/100x100/38867825_o06ppA1n0CEG0w2WkfvfFJu-dZYWdmBwGC5hb2OTYms.jpg", :height => "50", "photo-id" => "51a0d87e498efd44c96d95e7", :src => "https://irs1.4sqi.net/img/general/50x50/38867825_o06ppA1n0CEG0w2WkfvfFJu-dZYWdmBwGC5hb2OTYms.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs2.4sqi.net/img/general/100x100/47842024_AFMsByn0KZXP_U_7lUI34sZLVemtTI4lGZ7sq7yLYJ8.jpg", :height => "50", "photo-id" => "514b315be4b024dced12c563", :src => "https://irs2.4sqi.net/img/general/50x50/47842024_AFMsByn0KZXP_U_7lUI34sZLVemtTI4lGZ7sq7yLYJ8.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs2.4sqi.net/img/general/100x100/1900280_a114WAq4m1Wl-4fBMDF6LRMVDeqF6nvhnrUYxkhX3Uo.jpg", :height => "50", "photo-id" => "51a87069498e9bf0ad7d721f", :src => "https://irs2.4sqi.net/img/general/50x50/1900280_a114WAq4m1Wl-4fBMDF6LRMVDeqF6nvhnrUYxkhX3Uo.jpg", :width => "50"}/
+                    %img{:alt => "", "data-retina-url" => "https://irs3.4sqi.net/img/general/100x100/34814162_K1TNw-qRfnCz0XfKmlB_LjZqOR18bDTLHoNkjPalY9c.jpg", :height => "50", "photo-id" => "51a71040498e74d30d9b3e74", :src => "https://irs3.4sqi.net/img/general/50x50/34814162_K1TNw-qRfnCz0XfKmlB_LjZqOR18bDTLHoNkjPalY9c.jpg", :width => "50"}/
+
+      %section.info
+        %a.status{ :href => "#myModal", :role => "button", :class => ( @roof.status? ? "btn-success": "btn-danger"), "data-toggle" => "tooltip modal", "data-original-title" => "Последняя проверка #{l(@roof.checked_at, :format => :long)}", "data-placement" => "bottom"}
+          - if @roof.status?
+            Открыта
+          - else
+            Закрыта
+        .header
+          %h1.name= @roof.name
+
+        .attributes
+          .leftColumn
+            .address
+              .attr Адрес
+              .value
+                .adr{:itemprop => "address", :itemscope => "", :itemtype => "http://schema.org/PostalAddress"}
+                  %p
+                    %span.street-address{:itemprop => "streetAddress"}= @roof.address
+                  %p
+                    %span.locality{:itemprop => "addressLocality"}>= @roof.city
+                    ,
+                    %span.region{:itemprop => "addressRegion"}= @roof.state
+                    %a.directionsLink{:href => "http://maps.google.com/maps?daddr=#{@roof.latitude},#{@roof.longitude}", :target => "_blank", :title => "", 'data-toggle' => 'tooltip', 'data-original-title' => 'Проложить маршрут'} ➔
+          .rightColumn
+
+        - unless @roof.description.empty?
+          .description
+            = @roof.description
+
+        .actions
+          .btn-group.pull-left{ "data-toggle" => "buttons-checkbox"}
+            = link_to "<i class='icon-heart'></i>".html_safe, like_roof_path(@roof), :id => "like", :class => "btn" + (current_user && current_user.likes?(@roof) ? ' active': ''), "data-toggle" => "tooltip", "data-original-title" => "Мне понравилась эта крыша!", method: :post, remote: true
+            = link_to "<i class='icon-ban-circle'></i>".html_safe, dislike_roof_path(@roof), :id => "dislike", :class => "btn" + (current_user && current_user.dislikes?(@roof) ? ' active': ''), "data-toggle" => "tooltip", "data-original-title" => "Мне не понравилась эта крыша! :(", method: :post, remote: true
+
+          = link_to "<i class='icon-bookmark'></i> Сохранить".html_safe, bookmark_roof_path(@roof), :id => "bookmark", :class => "btn" + (current_user && current_user.bookmarks?(@roof) ? ' active': ''), "data-toggle" => "tooltip", "data-original-title" => "Сохранить крышу в список к посещению!", method: :post, remote: true
+
+      - if (!@roof.cost || @roof.cost == 0)|| (user_signed_in? && current_user.roofs.include?(@roof))
+        - if @roof.instruction?
+          %section.instruction
+            - if user_signed_in?
+              .edit
+                = link_to "Редактировать", instruction_roof_path(@roof)
+            %p Как на нее попасть:
+            .row-fluid
+              .span12{ 'data-toggle' => 'modal-gallery', 'data-target' => '#modal-gallery'}
+                - @roof.instruction.steps.each do |step|
+                  .row-fluid
+                    - if step.image?
+                      .span2
+                        = link_to image_tag(step.image.url(:thumb)), step.image.url, 'data-gallery' => 'gallery'
+                    .span10
+                      = step.description
+        - else
+          %section.instruction.new
+            %p
+              = link_to "Опубликовать инструкцию".html_safe, instruction_roof_path(@roof), :class => "btn"
+            %p{ :style => 'font-size: 10px;'}
+              Если вы были на этой крыше и у вас есть материал с тем как на нее попасть -
+              %br/
+              будьте первым!
+              %br/
+              Создайте инструкцию и радуйте людей вместе с нами!
+
+      - elsif @roof.cost
+        %section.instruction.buy
+          %p
+            = link_to "Приобрести инструкцию за #{@roof.cost} <i class='icon-rocket'></i>".html_safe, buy_roof_path(@roof), :class => "btn"
+          %p{ :style => 'font-size: 10px;'}
+            Мы подготовили для вас подробную инструкцию о том как попасть на эту крышу.
+            %br/
+            После приобретения она всегда будет доступна для вас на данной странице, а так же крыша попадет в раздел "Крыши" вашего профиля.
+            %br/
+            Материал всегда будет дорабатываться нашими общими действиями.
+
+
+      - if !@roof.photos?
+        %section.photos.new
+          %p{ :style => 'font-size: 10px;'}
+            Вы были на этой крыше? И засняли чудесный материал?
+          %p
+            = link_to "Опубликовать фотографии", new_roof_photo_path(@roof), :class => 'btn'
+
+    .span4
+      %section.map
+        #map
+
+      - unless @roofs_near.empty?
+        %section.near
+          %h4 Ближайшие крыши
+          -#
+            %ul
+              %li{"data-venueid" => "4da40ba163b5a35d44001e1a"}
+                %a.photo{:href => "https://ru.foursquare.com/v/%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D1%8F%D1%8F-%D0%B8%D1%82%D0%B0%D0%BB%D0%B8%D1%8F/4da40ba163b5a35d44001e1a"}
+                  %img{:alt => "", "data-retina-url" => "https://irs2.4sqi.net/img/general/100x100/P_KIPR-eIipx0CDt8xT5TtEo84yyXwQM88dMYwL2JF4.jpg", :height => "50", "photo-id" => "4f475425e4b08df2fa42d99c", :src => "https://irs2.4sqi.net/img/general/50x50/P_KIPR-eIipx0CDt8xT5TtEo84yyXwQM88dMYwL2JF4.jpg", :width => "50"}/
+                .info
+                  %p.name
+                    %a{:href => "https://ru.foursquare.com/v/%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D1%8F%D1%8F-%D0%B8%D1%82%D0%B0%D0%BB%D0%B8%D1%8F/4da40ba163b5a35d44001e1a"} Домашняя Италия
+                  %p.data
+                    %span.score.neutral{:title => "7.0/10 - Это место нравится людям"}
+                      %span 7.0
+                    %span.address ул. Родионова, 187
+              %li{"data-venueid" => "4e19684f62e12640d87efe98"}
+                %a.photo{:href => "https://ru.foursquare.com/v/il-patio/4e19684f62e12640d87efe98"}
+                  %img{:alt => "", "data-retina-url" => "https://irs1.4sqi.net/img/general/100x100/GX1PVGRTGITWLPEVF4FZ1JTQJLSMV2HZ1NWTACW4YCK5DR5G.jpg", :height => "50", "photo-id" => "4dad593e40a3da648e28b798", :src => "https://irs1.4sqi.net/img/general/50x50/GX1PVGRTGITWLPEVF4FZ1JTQJLSMV2HZ1NWTACW4YCK5DR5G.jpg", :width => "50"}/
+                .info
+                  %p.name
+                    %a{:href => "https://ru.foursquare.com/v/il-patio/4e19684f62e12640d87efe98"} Il Patio
+                  %p.data
+                    %span.score.neutral{:title => "7.0/10 - Это место нравится людям"}
+                      %span 7.0
+                    %span.address ул. Белинского, 61 (2 этаж)
+              %li{"data-venueid" => "4fa696a0e4b0b487cee17519"}
+                %a.photo{:href => "https://ru.foursquare.com/v/la-cantinetta-da-roberto/4fa696a0e4b0b487cee17519"}
+                  %img{:alt => "", "data-retina-url" => "https://irs1.4sqi.net/img/general/100x100/eKIFE5druG9sD_PB-1EfGUxOiedQuyzNEQlcFsP49go.jpg", :height => "50", "photo-id" => "4ffe95bee4b07fd059aa9cc8", :src => "https://irs1.4sqi.net/img/general/50x50/eKIFE5druG9sD_PB-1EfGUxOiedQuyzNEQlcFsP49go.jpg", :width => "50"}/
+                .info
+                  %p.name
+                    %a{:href => "https://ru.foursquare.com/v/la-cantinetta-da-roberto/4fa696a0e4b0b487cee17519"} La Cantinetta da Roberto
+                  %p.data
+                    %span.score.positive{:title => "7.2/10 - Это место нравится людям"}
+                      %span 7.2
+                    %span.address Рождественская 45в
+
+          %ul
+            - @roofs_near.each do |roof|
+              - photo = roof.photos.first
+              %li
+                - if photo
+                  %a.photo{:href => roof_path(roof)}
+                    %img{:alt => "", "data-retina-url" => photo.image.url, :height => "50", "photo-id" => photo._id, :src => photo.image.url(:thumb), :width => "50"}/
+                .info
+                  %p.name
+                    = link_to roof.name, roof_path(roof)
+                  %p.data
+                    -#
+                      %span.score.neutral{:title => "7.0/10 - Это место нравится людям"}
+                        %span 7.0
+                    %span.address= roof.address
+
+
+
+/ Modal
+#myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#myModalLabel Состоянии крыши
+  .modal-body
+    = form_for @roof.statuses.new, :url => roof_statuses_path(@roof), :html => { :multipart => true } do |f|
+      = f.label :status, :class => "checkbox" do
+        = f.check_box :status
+        Крыша открыта
+
+      .input-append.date.form_datetime{"data-date-language" => "#{I18n.locale}"}
+        = f.text_field :checked_at, :readonly => "", :size => "16"
+        %span.add-on
+          %i.icon-remove
+        %span.add-on
+          %i.icon-calendar
+
+      - content_for :end do
+        :javascript
+          $(".form_datetime").datetimepicker({
+              format: "dd MM yyyy - hh:ii",
+              autoclose: true,
+              todayBtn: true,
+              minuteStep: 10,
+              pickerPosition: "bottom-left"
+          });
+  .modal-footer
+    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Отменить
+    %button.btn.btn-primary{ :onclick => "$('#myModal').find('form').submit();"} Отправить информацию
+
+- content_for :end do
+  = render 'shared/fileupload/modal_gallery'
+
+  :javascript
+    var lat = #{@roof.latitude};
+    var lng = #{@roof.longitude};
+
+    $(document).ready(function(){
+      var map = new GMaps({
+        div: '#map',
+        lat: lat,
+        lng: lng,
+        panControl: false,
+        streetViewControl: false,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        },
+        zoomControlOptions: {
+          style: google.maps.ZoomControlStyle.SMALL
+        }
+      });
+      map.addMarker({
+        lat: lat,
+        lng: lng
+      });
+
+    });

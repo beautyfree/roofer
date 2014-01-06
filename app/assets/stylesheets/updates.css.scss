@@ -1,0 +1,56 @@
+// Place all the styles related to the updates controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,400,400bold&subset=latin,cyrillic);
+
+
+.updates {
+
+  section#section_upcoming-features {
+    background-color: #f9f9f9;
+    //width: 300px;
+    padding: .6em 1.2em;
+    font-size: 90%;
+    margin: 0 0 2.4em 2.4em;
+
+
+    h2 {
+      margin-top: 0;
+      font-size: 150%;
+      font-family: "avenir next","open sans";
+      font-weight: 100;
+    }
+    p {
+      color: #999;
+      &:before {
+        content: '+ ';
+      }
+    }
+    ol {
+      padding-left: 0;
+      margin: 0;
+      list-style-type: none;
+
+
+      li {
+        white-space: nowrap;
+        margin-bottom: .3em;
+        font-family: 'Open Sans','myriad pro','lucida pro',sans-serif,arial;
+
+        strong {
+          text-decoration: line-through;
+          font-weight: normal;
+          color: #777;
+        }
+
+        em {
+          float: right;
+          font-size: 80%;
+          color: #999;
+          font-style: normal;
+        }
+      }
+    }
+  }
+}

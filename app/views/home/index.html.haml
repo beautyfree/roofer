@@ -1,0 +1,74 @@
+#map-container
+  #map
+
+
+- content_for :end do
+  :javascript
+    var roofs = #{raw @roofs.to_json}
+
+    $(document).ready(function(){
+      var map = new GMaps({
+        div: '#map',
+        lat: -12.043333,
+        lng: -77.028333,
+        panControl: false,
+        streetViewControl: false,
+        mapTypeControlOptions: {
+          position: google.maps.ControlPosition.BOTTOM_CENTER
+        },
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.LEFT_CENTER
+        }
+      });
+
+      var markers_data = [];
+      for (var i = 0; i < roofs.length; i++) {
+        var roof = roofs[i];
+        if (roof.location != undefined) {
+          //var icon = 'https://foursquare.com/img/categories/food/default.png';
+          markers_data.push({
+            lat : roof.location[0],
+            lng : roof.location[1],
+            url : '#{roofs_path}/' + roof._id,
+            click : function(e) {
+              window.location.href = this.url;
+            }
+            //title : roof.name,
+            /*
+            icon : {
+              size : new google.maps.Size(32, 32),
+              url : icon
+            }
+            */
+          });
+        }
+      }
+      map.addMarkers(markers_data);
+
+      /* Местоположение
+      GMaps.geolocate({
+       success: function(position) {
+        map.setCenter(position.coords.latitude, position.coords.longitude);
+       },
+       error: function(error) {
+        alert('Geolocation failed: '+error.message);
+       },
+       not_supported: function() {
+        alert("Your browser does not support geolocation");
+       },
+       always: function() {
+        alert("Done!");
+       }
+      });
+      */
+
+      GMaps.geocode({
+       address: $('#address').val().trim(),
+       callback: function(results, status){
+        if(status=='OK'){
+         map.fitBounds(results[0].geometry.viewport);
+        }
+       }
+      });
+
+    });

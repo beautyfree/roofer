@@ -1,0 +1,65 @@
+= form_for @photo, :url => roof_photos_path(@roof._id), :method => :post, :html => { :multipart => true, :id => "fileupload"  } do |f|
+  / #fileupload{ 'data-url' => roof_photos_path(@roof._id)}
+  / The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload
+  .row-fluid.fileupload-buttonbar
+    .span12
+      / The fileinput-button span is used to style the file input field as button
+      %span.btn.btn-success.fileinput-button
+        %i.icon-plus.icon-white
+        %span= t('fileupload.add_files')
+        = f.hidden_field :roof_id, :value => @roof._id
+        = f.file_field :image
+      %button.btn.btn-primary.start{:type => "submit"}
+        %i.icon-upload.icon-white
+        %span= t('fileupload.start_upload')
+      %button.btn.btn-warning.cancel{:type => "reset"}
+        %i.icon-ban-circle.icon-white
+        %span= t('fileupload.cancel_upload')
+      %button.btn.btn-danger.delete{:type => "button"}
+        %i.icon-trash.icon-white
+        %span= t('fileupload.delete_multi')
+      %input.toggle{:type => "checkbox"}/
+    -#.span5
+        / The global progress bar
+        .progress.progress-success.progress-striped.active.fade
+          .bar{:style => "width:0%;"}
+  / The loading indicator is shown during image processing
+  .fileupload-loading
+  %br/
+  / The table listing the files available for upload/download
+  %table.table.table-striped
+    %tbody.files{"data-target" => "#modal-gallery", "data-toggle" => "modal-gallery"}
+
+:javascript
+  var fileUploadErrors = {
+    maxFileSize: 'File is too big',
+    minFileSize: 'File is too small',
+    acceptFileTypes: 'Filetype not allowed',
+    maxNumberOfFiles: 'Max number of files exceeded',
+    uploadedBytes: 'Uploaded bytes exceed file size',
+    emptyResult: 'Empty file upload result'
+  };
+= render "shared/fileupload/queue"
+= render "shared/fileupload/index"
+
+- content_for(:end) do
+  = render "shared/fileupload/modal_gallery"
+
+  :javascript
+    $(function () {
+      // Initialize the jQuery File Upload widget:
+      $('#fileupload').fileupload();
+      /*
+      // Load existing files:
+      $.getJSON($('#fileupload').attr('action'), function (files) {
+        var fu = $('#fileupload').data('blueimp-fileupload'),
+                    template;
+        fu._adjustMaxNumberOfFiles(-files.length);
+        template = fu._renderDownload(files).appendTo($('#fileupload .files'));
+        // Force reflow:
+        fu._reflow = fu._transition && template.length && template[0].offsetWidth;
+        template.addClass('in');
+        $('#loading').remove();
+      });
+      */
+    });

@@ -1,0 +1,2 @@
+module Roof::StatusesHelper
+end

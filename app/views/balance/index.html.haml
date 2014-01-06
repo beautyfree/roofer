@@ -1,0 +1,194 @@
+.row-fluid
+  .span12{ :style => 'padding: 10px 0 10px 20px'}
+    %i.icon-rocket.icon-4x.pull-left.icon-border
+    %h2.icon-mute
+      На счету:
+    %h2
+      = current_user.balance.to_i
+      = t('currency', :count => current_user.balance.to_i)
+.row-fluid
+  .span12
+    .form-actions
+      %button{"data-target" => "#payModal", "data-toggle" => "modal", :type => "button", :class => "btn btn-primary"} Получить взлеты
+
+- if current_user.transactions?
+  .row-fluid
+    .span12
+      %table.table
+        %thead
+          %tr
+            %th
+              Примечание
+            %th
+              Сумма
+            %th
+              Баланс
+            %th
+              Дата
+        %tbody
+          - current_user.transactions.each do |t|
+            %tr
+              %td
+                - if t.target_type == 'roof'
+                  - if t.amount < 0
+                    Покупка крыши
+                    = link_to Roof.find(t.target_id).name, roof_path(t.target_id)
+                  - elsif t.amount > 0
+                    Продажа крыши
+                    = link_to Roof.find(t.target_id).name, roof_path(t.target_id)
+                    (-25%)
+                - elsif t.target_type == 'balance'
+                  %span{ 'data-toggle' => 'tooltip', 'data-original-title' => "№#{t.target_id}"} Пополнение счета
+              %td
+                = t.amount
+              %td
+                = t.balance
+              %td
+                = l(t.created_at, :format => :long)
+
+#payModal.modal.hide.fade
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Закрыть
+    %h3 Пополнение счета
+  .modal-body
+    %p Пожалуйста, выберите желаемое количество взлетов:
+    = form_tag balance_pay_path do
+      .rockets
+        %label.radio
+          %input{:name => "rocket", :type => "radio", :value => "5"}/
+          %b 5 взлетов
+          %br/
+          %span.help-block 35 рублей
+
+        %label.radio
+          %input{:checked => "checked", :name => "rocket", :type => "radio", :value => "10"}/
+          %b 10 взлетов
+          %br/
+          %span.help-block 70 рублей
+
+        %label.radio
+          %input{:name => "rocket", :type => "radio", :value => "20"}/
+          %b 20 взлетов
+          %br/
+          %span.help-block 140 рублей
+
+        %label.radio
+          %input{:name => "rocket", :type => "radio", :value => "50"}/
+          %b 50 взлетов
+          %span.bonus + бонус 5 взлетов
+          %span.help-block 350 рублей
+
+        %label.radio
+          %input{:name => "rocket", :type => "radio", :value => "100"}/
+          %b 100 взлетов
+          %span.bonus + бонус 15 взлетов
+          %span.help-block 700 рублей
+
+        %label.radio
+          %input{:name => "rocket", :type => "radio"}/
+          Другое количество
+        .rockets_other_amount.hidden
+          %input{:id => "rocket_num", :type => "text", :value => "", :placeholder => "Введите количество взлетов"}/
+          %span.help-inline
+          %span.bonus
+  .modal-footer
+    %a#paySubmit.btn.btn-primary{:href => "#"} Получить взлеты
+
+- content_for :end do
+  :javascript
+    $('#paySubmit').click(function() {
+      var last = $('.rockets input[type=radio]:last-child')
+      if(last.is(':checked')) {
+        last.val($('#rocket_num').val());
+      }
+      $('#payModal form').submit();
+    });
+
+    $('.rockets input[type=radio]').click(function() {
+      if($(this).is(':last-child')) {
+        $('.rockets_other_amount').removeClass('hidden');
+      } else {
+        $('.rockets_other_amount').addClass('hidden');
+      }
+    });
+
+    if($('.rockets input[type=radio]:last-child').is(':checked')) {
+      $('.rockets_other_amount').removeClass('hidden');
+    }
+
+    var bonusesTable = {30: 1, 50: 5, 100: 15, 250: 50};
+    var calcPayAmount = "return 7 * votes";
+
+    $('#rocket_num').keyup(function() {
+        var v = $(this).val().replace(/[^0-9]/g, "");
+        var i = intval(parseInt(v, 10));
+        v = (i < 10000) ? i : parseInt(i.toString().substr(0, 4), 10);
+        if ($(this).val() != v) $(this).val(v);
+
+        var amount = 0;
+        if (calcPayAmount) {
+          if (calcPayAmount.indexOf('return') == -1) {
+            calcPayAmount = 'return ' + calcPayAmount;
+          }
+          var calcFunc = '(function(votes){' + calcPayAmount + ';})(' + v + ')';
+          amount = eval(calcFunc);
+          amount = amount ? Math.ceil(amount * 100) / 100 : 0;
+          amount = parseInt(amount, 10) == amount ? amount.toFixed(0) : amount.toFixed(2);
+        }
+        if (bonusesTable) {
+          var bonus = 0;
+          for (i in bonusesTable) {
+            if (v >= i) {
+              var _bonus = Math.floor(v * bonusesTable[i] / i);
+              if (_bonus > bonus) {
+                bonus = _bonus;
+              }
+            }
+          }
+          if (bonus) {
+            $('.rockets_other_amount .bonus').html(langNumeric(bonus, ["","+ бонус %s взлет","+ бонус %s взлета","+ бонус %s взлетов"]) );
+            $('.rockets_other_amount .bonus').show();
+          } else {
+            $('.rockets_other_amount .bonus').hide();
+          }
+        }
+        $('.rockets_other_amount span.help-inline').html(amount > 0 ? langNumeric(amount, ["","Стоимость %s рубль","Стоимость %s рубля","Стоимость %s рублей"]) : '');
+    });
+
+    function langNumeric(count, vars, formatNum) {
+      if (!vars || !window.langConfig) { return count; }
+      var res;
+      if (!isArray(vars)) {
+        res = vars;
+      } else {
+        res = vars[1];
+        if(count != Math.floor(count)) {
+          res = vars[langConfig.numRules['float']];
+        } else {
+          $.each(langConfig.numRules['int'], function(i,v){
+            if (v[0] == '*') { res = vars[v[2]]; return false; }
+            var c = v[0] ? count % v[0] : count;
+            if($.inArray(c, v[1]) != -1) { res = vars[v[2]]; return false; }
+          });
+        }
+      }
+      if (formatNum) {
+        var n = count.toString().split('.'), c = [];
+        for(var i = n[0].length - 3; i > -3; i -= 3) {
+          c.unshift(n[0].slice(i > 0 ? i : 0, i + 3));
+        }
+        n[0] = c.join(langConfig.numDel);
+        count = n.join(langConfig.numDec);
+      }
+      res = (res || '%s').replace('%s', count);
+      return res;
+    }
+
+    function intval(value) {
+      if (value === true) return 1;
+      return parseInt(value) || 0;
+    }
+
+    function isArray(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; }
+
+    var langConfig = {"id":0,"numDel":"<span class=\"num_delim\"> <\/span>","numDelS":" ","numDec":",","prepTags":["{prep_with}","{prep_With}","{prep_about}","{prep_About}"],"prep":[["{prep_with},{prep_With}","С*,З*","со,Со"],["{prep_with},{prep_With}","*,Са*,Се*,Сё*,Си*,Со*,Су*,Сэ*,Сю*,Ся*,За*,Зе*,Зё*,Зи*,Зо*,Зу*,Зэ*,Зю*,Зя*","с,С"],["{prep_about},{prep_About}","А*,О*,У*,И*,Э*","об,Об"],["{prep_about},{prep_About}","*","о,О"]],"parent":0,"timeSys":["24hour"],"yearOffset":0,"flexLast":false,"revOrder":false,"RTL":false,"numRules":{"int":[[100,[11,12,13,14],3],[10,[1],1],[10,[2,3,4],2],["*",0,3]],"float":2},"sexRules":[[1,2],["*",1]],"larr":"&larr;","rarr":"&rarr;"};

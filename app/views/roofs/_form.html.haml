@@ -1,0 +1,149 @@
+.row-fluid
+  .span6
+    = form_for @roof, :html => { :multipart => true } do |f|
+      - if @roof.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@roof.errors.count, "error")} prohibited this roof from being saved:"
+          %ul
+            - @roof.errors.full_messages.each do |msg|
+              %li= msg
+
+      = f.label :name
+      = f.text_field :name
+
+      = f.label :description
+      = f.text_area :description, :rows => 5, :class => 'input-block-level'
+
+      %fieldset
+        %legend Местоположение
+        = f.label :city
+        = f.text_field :city
+
+        = f.label :state
+        = f.text_field :state
+
+        = f.label :address
+        = f.text_field :address
+
+        = f.hidden_field :latitude
+        = f.hidden_field :longitude
+
+      %fieldset
+        %legend Состояние
+        = f.label :status, :class => "checkbox" do
+          = f.check_box :status
+          Крыша открыта
+
+        .input-append.date.form_datetime{"data-date-language" => "#{I18n.locale}", "data-date" => "#{(@roof.checked_at.strftime("%F %H:%M") if @roof.checked_at?)}"}
+          = f.text_field :checked_at, :value => (@roof.checked_at.strftime("%F %H:%M") if @roof.checked_at?), :readonly => "", :size => "16"
+          %span.add-on
+            %i.icon-remove
+          %span.add-on
+            %i.icon-calendar
+
+        - content_for :end do
+          :javascript
+            $(".form_datetime").datetimepicker({
+                format: "dd MM yyyy - hh:ii",
+                autoclose: true,
+                todayBtn: true,
+                minuteStep: 10,
+                pickerPosition: "bottom-left"
+            });
+  .span6
+    Карта
+    #map
+
+.form-actions
+  = submit_tag 'Сохранить', :class => 'btn btn-primary', :onclick => '$("form[id*=roof]").submit();'
+
+- content_for :end do
+  :javascript
+     $(document).ready(function(){
+      var lat = $('#roof_latitude').val();
+      var lng = $('#roof_longitude').val();
+
+      if(lat == 0 || lng == 0) {
+        GMaps.geocode({
+         address: $('#address').val().trim(),
+         callback: function(results, status){
+          if(status=='OK'){
+           map.fitBounds(results[0].geometry.viewport);
+          }
+         }
+        });
+      }
+
+      var map = new GMaps({
+        div: '#map',
+        lat: lat,
+        lng: lng,
+        panControl: false,
+        streetViewControl: false,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+        },
+        zoomControlOptions: {
+          style: google.maps.ZoomControlStyle.SMALL
+        }
+      });
+
+      var marker = map.addMarker({
+        lat: lat,
+        lng: lng,
+        animation: google.maps.Animation.DROP,
+        draggable: true
+      });
+
+      GMaps.on('dragend', marker, function() {
+        var latlng = this.getPosition();
+        change_position(latlng.lat(), latlng.lng());
+      });
+
+      function change_position(lat, lng) {
+        $('#roof_latitude').val(lat);
+        $('#roof_longitude').val(lng);
+      }
+
+
+      GMaps.on('click', map.map, function(event) {
+        var latlng = event.latLng;
+
+        map.setCenter(latlng.lat(), latlng.lng());
+        marker.setPosition(new google.maps.LatLng(latlng.lat(), latlng.lng()));
+        change_position(latlng.lat(), latlng.lng());
+      });
+
+
+      $('#roof_city, #roof_state, #roof_address').bind('click blur', function(e){
+        e.preventDefault();
+
+        var address = $('#roof_city').val().trim() + ', ' + $('#roof_state').val().trim() + ' ,' + $('#roof_address').val().trim();
+        GMaps.geocode({
+          address: address,
+          callback: function(results, status){
+            if(status=='OK'){
+              var latlng = results[0].geometry.location;
+
+              map.setCenter(latlng.lat(), latlng.lng());
+              marker.setPosition(new google.maps.LatLng(latlng.lat(), latlng.lng()));
+              change_position(latlng.lat(), latlng.lng());
+            }
+          }
+        });
+      });
+    });
+
+  :javascript
+    $(document).ready(function(){
+      $('input[type=file].step_image').bootstrapFileInput();
+    });
+
+    $(document).on('nested:fieldAdded', function(event){
+        // this field was just inserted into your form
+        var field = event.field;
+        // it's a jQuery object already! Now you can find date input
+        var fileField = field.find('input[type=file].step_image');
+        // and activate bootstrapFile on it
+        fileField.bootstrapFileInput();
+    })
